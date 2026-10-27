@@ -1,29 +1,28 @@
-import { pool } from "../database/db.js";
-import { Knex } from "../database/knex.js";
+import { veiculosRepositore } from "../repositories/repositore.js";
+
 
 class VeiculosService{
-    async getall(id) {
-        const res = await pool.query("SELECT * FROM veiculos")
-        return res.rows
+    async getall() {
+        const veiculos = await veiculosRepositore.getall()
+        return veiculos
     }
+    async getByID(id) {
+            const veiculos = await veiculosRepositore.getByID(id)
+            return veiculos
+        }
 
-    async create({modelo, marca, ano, placa}) {
-        const res = await pool.query("INSERT INTO veiculos (modelo,marca,ano,placa) VALUES ($1, $2, $3, $4) RETURNING *", [modelo,marca,ano,placa]);
-        return res.rows[0]
+
+    async create(data) {
+        const veiculos = await veiculosRepositore.create(data)
+        return veiculos
     }
      async delete(id) {
-        const res = await pool.query("DELETE FROM veiculos WHERE id = $1 RETURNING *", [id]);
-        return {
-            message:"Veiculo deletado com sucesso",
-            veiculo: res.rows[0]
-        }
+        const veiculos = await veiculosRepositore.delete (id)
+        return veiculos
     }
      async updatePut(id, data) {
-        const res = await pool.query("UPDATE veiculos WHERE id = $1 SET  modelo = $2, marca = $3, ano = $4, placa = $5 RETURNING *", [id, data.modelo, data.marca, data.ano, data.placa]);
-        return {
-            message:"Veiculo atualizado com sucesso",
-            veiculo: res.rows[0]
-        }
+        const veiculos = await veiculosRepositore.updatePut(id,data)
+        return veiculos 
     }
 
     //  async updatePatch(id, campos) {
@@ -49,11 +48,8 @@ class VeiculosService{
 
     // }
 async updateKnex(id,dados){
-    const [veiculoAtualizado] = await knex("veiculos").where({ id }).update(dados).returning("")
-    return {
-           message:"Veiculo atualizado com sucesso",
-            veiculoAtualizado
-        }
+    const veiculoAtualizado = await veiculosRepositore.updateKnex(id,dados)
+    return veiculoAtualizado
 }
 
 }

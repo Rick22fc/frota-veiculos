@@ -5,6 +5,4 @@ export const knex = KnexConfig({
     client: "pg",
     connection: {},
     debug: true
-
-
 })

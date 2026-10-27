@@ -1,10 +1,18 @@
-import { Router } from "express";
 import { veiculosServices } from "../Services/veiculos.Services.js";
 
-export class VeiculosController{
+class VeiculosController{
 
  async getALL(req, res) {
     try {
+
+        const veiculos = await veiculosServices.getall();
+        res.json(veiculos);
+    } catch (error) {
+        console.error(error);
+    }
+};
+async getByID(){
+try {
 
         const veiculoId = req.params.id
         const veiculos = await veiculosServices.getall(veiculoId);
@@ -22,7 +30,7 @@ export class VeiculosController{
     }
 
 };
-async delete(req, res) => {
+async delete(req, res)  {
     const veiculoId = req.params.id
 
     try {
@@ -36,7 +44,7 @@ async delete(req, res) => {
 };
 
 
- async put (req, res) => {
+ async put (req, res)  {
 
     try {
         const veiculoId = req.params.id
@@ -50,14 +58,13 @@ async delete(req, res) => {
     }
 };
 
- async patch(req, res) => {
+ async patch(req, res)  {
 
     try {
         const veiculoId = req.params.id
 
         const veiculos = await veiculosServices.updateKnex(veiculoId, req.body);
         res.status(201).json(veiculos);
-
     }
     catch (error) {
         console.error("erro ao atualizar veiculo");

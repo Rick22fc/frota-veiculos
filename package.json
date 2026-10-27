@@ -8,5 +8,12 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js"
-  }
+  },
+  "name": "frota-veiculos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
