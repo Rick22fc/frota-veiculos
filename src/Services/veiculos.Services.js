@@ -1,8 +1,8 @@
 import { pool } from "../database/db.js";
 import { Knex } from "../database/knex.js";
 
-class veiculosService{
-    async getall() {
+class VeiculosService{
+    async getall(id) {
         const res = await pool.query("SELECT * FROM veiculos")
         return res.rows
     }
@@ -58,4 +58,4 @@ async updateKnex(id,dados){
 
 }
 
-export const veiculosServices = new veiculosService()
+export const veiculosServices = new VeiculosService()
